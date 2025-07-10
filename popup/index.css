@@ -1,0 +1,27 @@
+
+/* import brand font style from Google API, may be subject to change */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+
+/* using universal selector to assign font across all elements */
+* {
+    font-family: 'Fredoka', Arial, sans-serif;
+}
+
+body {
+    width: 300px;
+    height: 500px;
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;    
+}
+
+#searchCouponsButton {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
