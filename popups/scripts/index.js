@@ -9,29 +9,10 @@ document.getElementById('searchCouponsButton').addEventListener('click', async f
     
     // check if domain exists in our database
     if (couponDatabase[domain]) {
-        displayCoupons(couponDatabase[domain]);
+        // Navigate to coupons page
+        window.location.href = `coupons.html?domain=${domain}`;
     } else {
-        displayNoCoupons();
+        // Navigate to no-support page
+        window.location.href = 'no-support.html';
     }
 });
-
-function displayCoupons(coupons) {
-    const body = document.body;
-    body.innerHTML = `
-        <div id="couponList">
-            ${coupons.map(coupon => `
-                <div class="coupon">
-                    <strong>${coupon.code}</strong> - ${coupon.title}
-                    <p>${coupon.description}</p>
-                </div>
-            `).join('')}
-        </div>
-    `;
-}
-
-function displayNoCoupons() {
-    const body = document.body;
-    body.innerHTML = `
-        <p>Kupon bulunamadı çünkü burası alışveriş sitesi değil yarak kafası</p>
-    `;
-}
