@@ -1,0 +1,9 @@
+{
+    "manifest_version": 3,
+    "name": "Kebapp",
+    "description": "Kebapp gibi kuponlar bul!",
+    "version": "0.1",
+    "action": {
+        "default_popup": "popup/index.html"
+    }
+}
