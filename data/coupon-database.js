@@ -29,7 +29,7 @@ export const couponDatabase = {
             title: "Ücretsiz Kargo",
             description: "Tüm siparişlerde geçerli",
             expiry: "2025-8-21",
-            minOrder: 200,
+            minOrder: 0,
             discountType: "free-shipping",
             discountAmount: null
         }
