@@ -30,7 +30,7 @@ p {
     margin: 0;
 }
 
-#searchCouponsButton {
+button {
   background-color: #e63946;
   color: white;
   border: none;
