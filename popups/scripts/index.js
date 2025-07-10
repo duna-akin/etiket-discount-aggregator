@@ -1,5 +1,5 @@
 // import coupon database
-import { couponDatabase } from '../data/coupon-database.js';
+import { couponDatabase } from '../../data/coupon-database.js';
 
 document.getElementById('searchCouponsButton').addEventListener('click', async function() {
     // get current tab URL
