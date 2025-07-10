@@ -4,7 +4,7 @@
     "description": "Kebapp gibi kuponlar bul!",
     "version": "0.1",
     "action": {
-        "default_popup": "popup/index.html"
+        "default_popup": "popups/index.html"
     },
     "permissions": [
         "activeTab"
