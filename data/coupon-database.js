@@ -1,7 +1,7 @@
 // will start initially with trendyol, fake data
 // minOrder represents the minimum cart total (in ₺) required to apply the coupon
 
-const couponDatabase = {
+export const couponDatabase = {
     "trendyol.com": [
         {
             id: 1,
@@ -31,7 +31,7 @@ const couponDatabase = {
             expiry: "2025-8-21",
             minOrder: 200,
             discountType: "free-shipping",
-            discountAmount: NA
+            discountAmount: null
         }
     ]
 }
