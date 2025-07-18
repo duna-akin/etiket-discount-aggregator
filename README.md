@@ -1,4 +1,4 @@
-# Kebapp Browser Extension
+# Etiket Browser Extension
 
 A simple browser extension that finds and displays coupon codes for supported Turkish e-commerce websites.
 
@@ -15,7 +15,7 @@ A simple browser extension that finds and displays coupon codes for supported Tu
 ## Current File Structure
 
 ```
-kebapp/
+etiket/
 ├── manifest.json                    # Extension configuration
 ├── data/
 │   └── coupon-database.js          # Coupon data (currently Trendyol only)
@@ -47,7 +47,7 @@ kebapp/
 ## Current Data
 
 - **Supported Sites:** Trendyol.com only
-- **Sample Coupons:** 3 fake coupons (TREND20, KEBAPP50, FREESHIP)
+- **Sample Coupons:** 3 fake coupons (TREND20, ETIKET50, FREESHIP)
 
 ## Next Steps
 

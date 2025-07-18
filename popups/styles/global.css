@@ -1,6 +1,6 @@
 
 /* ========================================
-   KEBAPP EXTENSION - GLOBAL STYLES
+   ETIKET EXTENSION - GLOBAL STYLES
    ======================================== */
 
 /* ========================================
@@ -110,7 +110,7 @@ li {
 .coupon-code {
     font-size: 16px;
     font-weight: 700;            /* Bold for emphasis */
-    color: #e63946;              /* Brand red color */
+    color: #ff6b35;              /* Brand orange color */
     margin-bottom: 5px;
 }
 
@@ -149,7 +149,7 @@ li {
    ======================================== */
 /* All buttons - consistent styling across extension */
 button {
-    background-color: #e63946;   /* Brand red background */
+    background-color: #ff6b35;   /* Brand orange background */
     color: white;                /* White text for contrast */
     border: none;                /* Remove default button border */
     padding: 10px 16px;          /* Comfortable click target */
@@ -162,7 +162,7 @@ button {
 
 /* Button hover state for better user feedback */
 button:hover {
-    background-color: #d52d3a;   /* Slightly darker red on hover */
+    background-color: #e55a2b;   /* Slightly darker orange on hover */
 }
 
 /* Button focus state for accessibility */

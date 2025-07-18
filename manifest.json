@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "Kebapp",
-    "description": "Kebapp gibi kuponlar bul!",
+    "name": "Etiket",
+    "description": "Etiket gibi kuponlar bul!",
     "version": "0.1",
     "action": {
         "default_popup": "popups/pages/index.html"

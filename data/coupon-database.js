@@ -15,7 +15,7 @@ export const couponDatabase = {
         },
         {
             id: 2,
-            code: "KEBAPP50",
+            code: "ETIKET50",
             title: "50 TL İndirim",
             description: "150 TL ve üzeri alışverişlerde geçerli",
             expiry: "2025-12-01",
@@ -33,5 +33,7 @@ export const couponDatabase = {
             discountType: "free-shipping",
             discountAmount: null
         }
-    ]
+    ],
+
+    "hepsiburada.com": []
 }
