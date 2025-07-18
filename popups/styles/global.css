@@ -110,7 +110,7 @@ li {
 .coupon-code {
     font-size: 16px;
     font-weight: 700;            /* Bold for emphasis */
-    color: #ff6b35;              /* Brand orange color */
+    color: #ff7C08;              /* Brand orange color */
     margin-bottom: 5px;
 }
 
@@ -149,7 +149,7 @@ li {
    ======================================== */
 /* All buttons - consistent styling across extension */
 button {
-    background-color: #ff6b35;   /* Brand orange background */
+    background-color: #ff7C08;   /* Brand orange background */
     color: white;                /* White text for contrast */
     border: none;                /* Remove default button border */
     padding: 10px 16px;          /* Comfortable click target */
