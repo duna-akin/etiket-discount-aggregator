@@ -12,6 +12,7 @@
     },
     "permissions": [
         "activeTab",
-        "notifications"
+        "notifications",
+        "tabs"
     ]
 }
