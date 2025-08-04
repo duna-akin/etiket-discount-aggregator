@@ -1,0 +1,8 @@
+{
+  "name": "etiket-scraper",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}
