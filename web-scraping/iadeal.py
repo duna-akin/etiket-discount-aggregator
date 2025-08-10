@@ -7,28 +7,26 @@ def run(playwright: Playwright):
     page = browser.new_page()
     page.goto(start_url)
 
-    # wait 5 seconds
-    # https://webscrapingsite.com/blog/how-to-wait-for-page-to-fully-load-in-playwright/
-    page.wait_for_timeout(5000)  # Wait 5 seconds
+    # wait 5 seconds for page to load
+    page.wait_for_timeout(5000)
     print("Page loaded, looking for button...")
 
     # find the FIRST button
-    button = page.query_selector('button.coupon-btn')
+    coupon_button = page.query_selector('button.coupon-btn')
 
-    if button:
+    if coupon_button:
         print("Found button, clicking...")
-
-        # !!!!!!!!!!!! We also need to get the expiry date here before clicking!!!!
-
-        button.click()
+        coupon_button.click()
         
-        # wait a moment 
+        # wait 3 seconds 
         page.wait_for_timeout(3000) 
         print("Button clicked! Check what popup appeared...")
 
-        page.wait_for_selector('#code-id', state='attached', timeout=5000)  # wait for the hidden input
+        # wait for the hidden input
+        page.wait_for_selector('#code-id', state='attached', timeout=5000)  
         print("Modal appeared!")
 
+        # find company element and extract name
         company_input = page.query_selector('#brand-name')
         if company_input:
             company_name = company_input.inner_text()
@@ -36,13 +34,17 @@ def run(playwright: Playwright):
         else:
             print("Company name not found")
 
-        # get coupon code from hidden input in the modal
+        # get coupon code
         coupon_input = page.query_selector('#code-id')
         if coupon_input:
             coupon_code = coupon_input.get_attribute('value')
             print(f"Found coupon code: {coupon_code}")
         else:
             print("Hidden input not found in modal!")
+
+        # close modal
+        page.keyboard.press('Escape')
+        print("Escaped modal!")
 
     else:
         print("No button found!")
