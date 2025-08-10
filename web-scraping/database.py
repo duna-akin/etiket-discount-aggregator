@@ -20,7 +20,8 @@ class CouponDatabase:
                        coupon_code TEXT,
                        expiry_date TEXT,
                        entered_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       source_url TEXT
+                       source_url TEXT,
+                       UNIQUE(company_name, coupon_code, expiry_date)
                     )
                 ''')
         
@@ -33,12 +34,15 @@ class CouponDatabase:
             raise Exception("Database unconnected. Call connect() first.")
         
         cursor = self.connection.cursor()
-        cursor.execute('''
-            INSERT INTO coupons (company_name, coupon_code, expiry_date, source_url)
-            VALUES (?, ?, ?, ?)
-        ''', (company_name, coupon_code, expiry_date, source_url))
-        self.connection.commit()
-        print(f"Saved {company_name} - {coupon_code} to database")
+        try:
+            cursor.execute('''
+                INSERT INTO coupons (company_name, coupon_code, expiry_date, source_url)
+                VALUES (?, ?, ?, ?)
+            ''', (company_name, coupon_code, expiry_date, source_url))
+            self.connection.commit()
+            print(f"Saved {company_name} - {coupon_code} to database")
+        except sqlite3.IntegrityError:
+            print("Duplicate skipped")
 
 if __name__ == "__main__":
     # Test database creation and saving
@@ -47,7 +51,7 @@ if __name__ == "__main__":
     
     # Test saving a coupon (no 'self' parameter when calling)
     db.save_coupon("Karaca", "HS500", "8/31/2025", "https://iadeal.com")
-    db.save_coupon("Nike", "SPORT20", "9/15/2025", "https://iadeal.com")
-    
+    db.save_coupon("Karaca", "HS500", "8/31/2025", "https://iadeal.com")  # This will be skipped
+
     print("Test completed!")
     db.connection.close()
