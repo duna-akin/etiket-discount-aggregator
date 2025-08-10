@@ -44,6 +44,11 @@ class CouponDatabase:
         except sqlite3.IntegrityError:
             print("Duplicate skipped")
 
+    def close(self):
+        """Close connection"""
+        if self.connection:
+            self.connection.close()
+
 if __name__ == "__main__":
     # Test database creation and saving
     db = CouponDatabase()
