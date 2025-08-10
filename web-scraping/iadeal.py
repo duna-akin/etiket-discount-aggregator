@@ -11,10 +11,18 @@ def run(playwright: Playwright):
     page.wait_for_timeout(5000)
     print("Page loaded, looking for button...")
 
-    # find the FIRST button
-    coupon_button = page.query_selector('button.coupon-btn')
+    # find all coupon buttons
+    coupon_buttons = page.query_selector_all('button.coupon-btn.code-btn.green-btn-fill')
+    print(f"Found {len(coupon_buttons)} coupon buttons on this page")
 
-    if coupon_button:
+    # enumarate through each coupon button
+    for i, coupon_button in enumerate(coupon_buttons):
+        print(f"\nProcessing coupon {i+1}/{len(coupon_buttons)}...")
+
+        # scroll to button if needed
+        coupon_button.scroll_into_view_if_needed()
+
+        # click button
         print("Found button, clicking...")
         coupon_button.click()
         
@@ -42,12 +50,18 @@ def run(playwright: Playwright):
         else:
             print("Hidden input not found in modal!")
 
-        # close modal
-        page.keyboard.press('Escape')
-        print("Escaped modal!")
+        close_button = page.query_selector('button.close.modal-btn.pull-right[data-dismiss="modal"]')
+        if close_button:
+            close_button.click()
+            print("Modal closed using button")
+        else:
+            page.keyboard.press('Escape')
+            print("Modal closed with Escape")
+        
+        # wait 2 seconds for modal to close
+        page.wait_for_timeout(2000)
 
-    else:
-        print("No button found!")
+    print(f"\nFinished processing all buttons on this page!")
 
     # keep browser open
     input("Press Enter to close...")
