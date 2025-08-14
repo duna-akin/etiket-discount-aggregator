@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright, Playwright # type: ignore
+from database import CouponDatabase
 
 def run(playwright: Playwright):
     start_url = "https://iadeal.com/kampanyalar-indirim-kuponlari"
@@ -6,6 +7,10 @@ def run(playwright: Playwright):
     browser = chrome.launch(headless=False)
     page = browser.new_page()
     page.goto(start_url)
+
+    #setup connection to db
+    db = CouponDatabase()
+    db.connect()
 
     # wait 5 seconds for page to load
     page.wait_for_timeout(5000)
@@ -50,6 +55,9 @@ def run(playwright: Playwright):
         else:
             print("Hidden input not found in modal!")
 
+        # save code to database
+        db.save_coupon(company_name, coupon_code, None, start_url)
+
         close_button = page.query_selector('button.close.modal-btn.pull-right[data-dismiss="modal"]')
         if close_button:
             close_button.click()
@@ -62,6 +70,9 @@ def run(playwright: Playwright):
         page.wait_for_timeout(2000)
 
     print(f"\nFinished processing all buttons on this page!")
+
+    # close db
+    db.close()
 
     # keep browser open
     input("Press Enter to close...")
