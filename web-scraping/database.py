@@ -48,15 +48,3 @@ class CouponDatabase:
         """Close connection"""
         if self.connection:
             self.connection.close()
-
-if __name__ == "__main__":
-    # Test database creation and saving
-    db = CouponDatabase()
-    db.connect()
-    
-    # Test saving a coupon (no 'self' parameter when calling)
-    db.save_coupon("Karaca", "HS500", "8/31/2025", "https://iadeal.com")
-    db.save_coupon("Karaca", "HS500", "8/31/2025", "https://iadeal.com")  # This will be skipped
-
-    print("Test completed!")
-    db.connection.close()
