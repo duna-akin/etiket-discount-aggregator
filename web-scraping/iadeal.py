@@ -1,24 +1,16 @@
 from playwright.sync_api import sync_playwright, Playwright # type: ignore
 from database import CouponDatabase
 
-def run(playwright: Playwright):
-    start_url = "https://iadeal.com/kampanyalar-indirim-kuponlari"
-    chrome = playwright.chromium
-    browser = chrome.launch(headless=False)
-    page = browser.new_page()
-    page.goto(start_url)
+def process_coupons_on_page(page, db, start_url):
+    """Process all coupons on current page"""
 
-    #setup connection to db
-    db = CouponDatabase()
-    db.connect()
-
-    # wait 5 seconds for page to load
-    page.wait_for_timeout(5000)
-    print("Page loaded, looking for button...")
-
-    # find all coupon buttons
+    # extract all coupon buttons
     coupon_buttons = page.query_selector_all('button.coupon-btn.code-btn.green-btn-fill')
     print(f"Found {len(coupon_buttons)} coupon buttons on this page")
+
+    # no coupons
+    if len(coupon_buttons) == 0:
+        return False
 
     # enumarate through each coupon button
     for i, coupon_button in enumerate(coupon_buttons):
@@ -41,6 +33,7 @@ def run(playwright: Playwright):
 
         # find company element and extract name
         company_input = page.query_selector('#brand-name')
+        company_name = ""
         if company_input:
             company_name = company_input.inner_text()
             print(f"Company: {company_name}")
@@ -49,6 +42,7 @@ def run(playwright: Playwright):
 
         # get coupon code
         coupon_input = page.query_selector('#code-id')
+        coupon_code = ""
         if coupon_input:
             coupon_code = coupon_input.get_attribute('value')
             print(f"Found coupon code: {coupon_code}")
@@ -69,7 +63,64 @@ def run(playwright: Playwright):
         # wait 2 seconds for modal to close
         page.wait_for_timeout(2000)
 
-    print(f"\nFinished processing all buttons on this page!")
+    # processed coupons on page
+    return True
+
+def go_to_next_page(page, page_number):
+    """Click on the next page"""
+
+    # find specific page number div
+    next_page_selector = f'div[onclick="ChangeCampaignPage({page_number})"]'
+    next_page_element = page.query_selector(next_page_selector)
+
+    if next_page_element:
+        print(f"Going to page {page_number}...")
+        next_page_element.scroll_into_view_if_needed()
+        next_page_element.click()
+
+        # wait for page to load
+        page.wait_for_timeout(5000)
+
+        return True
+    
+    else:
+        print(f"Page {page_number} not found. End of pages.")
+        return False
+
+def run(playwright: Playwright):
+    # setup
+    start_url = "https://iadeal.com/kampanyalar-indirim-kuponlari"
+    chrome = playwright.chromium
+    browser = chrome.launch(headless=False)
+    page = browser.new_page()
+    page.goto(start_url)
+
+    # setup connection to db
+    db = CouponDatabase()
+    db.connect()
+
+    # wait 5 seconds for page to load
+    page.wait_for_timeout(5000)
+    print("Page loaded, looking for button...")
+
+    # track page and number of coupons
+    current_page = 1
+    total_coupons_processed = 0
+
+    while True:
+        print(f"\n=== Processing Page {current_page} ===")
+        
+        # Process all coupons on current page
+        success = process_coupons_on_page(page, db, start_url)
+            
+        # Try to go to next page
+        current_page += 1
+        if not go_to_next_page(page, current_page):
+            print("No more pages available. Scraping completed!")
+            break
+
+    print(f"\nFinished processing all pages!")
+    print(f"Total coupons processed: {db.count_total_coupons()}")
 
     # close db
     db.close()
