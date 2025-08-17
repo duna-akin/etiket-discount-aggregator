@@ -1,6 +1,7 @@
 # Scraper Stuff
 web-scraping/node_modules/
 web-scraping/package-lock.json
+web-scraping/__pycache__/
 
 # .env
 .env
