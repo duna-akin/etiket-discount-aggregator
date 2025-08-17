@@ -4,3 +4,7 @@ web-scraping/package-lock.json
 
 # .env
 .env
+
+# Database files
+data/coupons.db
+data/coupons.json
