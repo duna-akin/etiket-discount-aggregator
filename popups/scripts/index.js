@@ -17,19 +17,21 @@ function displayCoupons(coupons) {
         return;
     }
 
+    // Add the coupon-list class to the container
+    container.className = 'coupon-list';
+    
     let html = '';
     
     coupons.forEach(coupon => {
         html += `
-            <div class="coupon-item">
-                <h3>${coupon.company}</h3>
-                <p><strong>Kod:</strong> ${coupon.code}</p>
-                <p><strong>Başlık:</strong> ${coupon.title}</p>
-                <p><strong>Açıklama:</strong> ${coupon.description}</p>
-                <p><strong>Son Kullanma:</strong> ${coupon.expiry}</p>
-                <p><strong>Minimum Sipariş:</strong> ${coupon.minOrder}</p>
-                <p><strong>Kaynak:</strong> <a href="${coupon.source}" target="_blank">Link</a></p>
-                <hr>
+            <div class="coupon-card">
+                <div class="coupon-code">${coupon.code}</div>
+                <div class="coupon-title">${coupon.company}</div>
+                <div class="coupon-description">${coupon.description}</div>
+                <div class="coupon-details">
+                    <span>Min: ${coupon.minOrder}₺</span>
+                    <span>Son: ${coupon.expiry}</span>
+                </div>
             </div>
         `;
     });
